@@ -43,55 +43,51 @@ class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                ScreenAppbarWidget(
-                  title: 'Recently Played',
-                  songList: recentdbsongs,
-                ),
-                if (recentdbsongs.isNotEmpty)
-                  TextButton(
-                      onPressed: () {
-                        showDialog(
-                            context: context,
-                            builder: (BuildContext ctx) {
-                              return AlertDialog(
-                                title: const Text('Are You Sure?'),
-                                actions: [
-                                  TextButton(
-                                      onPressed: () {
-                                        Navigator.of(ctx).pop();
-                                      },
-                                      child: const Text('Cancel')),
-                                  ElevatedButton(
-                                      onPressed: () async {
-                                        await recentplayeddb.clear();
-                                        recentdbsongs.clear();
-                                        setState(() {});
-                                        Navigator.of(ctx).pop();
-                                        ScaffoldMessenger.of(ctx).showSnackBar(
-                                          const SnackBar(
-                                            content: Text('Cleared Your Songs'),
-                                            duration:
-                                                Duration(milliseconds: 600),
-                                          ),
-                                        );
-                                      },
-                                      child: const Text('Clear'))
-                                ],
-                              );
-                            });
-                      },
-                      child: const Text('Clear All')),
-                RecentlyListView(
-                  recentdbsongs: recentdbsongs,
-                ),
-              ],
-            ),
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              ScreenAppbarWidget(
+                title: 'Recently Played',
+                songList: recentdbsongs,
+              ),
+              if (recentdbsongs.isNotEmpty)
+                TextButton(
+                    onPressed: () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext ctx) {
+                            return AlertDialog(
+                              title: const Text('Are You Sure?'),
+                              actions: [
+                                TextButton(
+                                    onPressed: () {
+                                      Navigator.of(ctx).pop();
+                                    },
+                                    child: const Text('Cancel')),
+                                ElevatedButton(
+                                    onPressed: () async {
+                                      await recentplayeddb.clear();
+                                      recentdbsongs.clear();
+                                      setState(() {});
+                                      Navigator.of(ctx).pop();
+                                      ScaffoldMessenger.of(ctx).showSnackBar(
+                                        const SnackBar(
+                                          content: Text('Cleared Your Songs'),
+                                          duration: Duration(milliseconds: 600),
+                                        ),
+                                      );
+                                    },
+                                    child: const Text('Clear'))
+                              ],
+                            );
+                          });
+                    },
+                    child: const Text('Clear All')),
+              RecentlyListView(
+                recentdbsongs: recentdbsongs,
+              ),
+            ],
           ),
         ),
       ),

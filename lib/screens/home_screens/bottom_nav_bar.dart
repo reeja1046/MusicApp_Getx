@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/screens/home_screens/home_screen.dart';
+import 'package:music_app/screens/home_screens/library/favourites.dart';
 import 'package:music_app/screens/playlist/playlist.dart';
 import 'package:music_app/screens/settings_screens/settings.dart';
 
@@ -17,7 +18,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
   final _pages = [
     const HomeScreen(),
-    // SearchScreen(),
+    const AddToFav(),
     const AllPlaylist(),
     const MainSettings(),
   ];
@@ -27,31 +28,36 @@ class _BottomNavBarState extends State<BottomNavBar> {
     return Scaffold(
       body: _pages[selectedIndex],
       bottomNavigationBar: SuperBottomNavigationBar(
+        backgroundColor: Colors.black,
         items: const [
           SuperBottomNavigationBarItem(
               unSelectedIcon: Icons.home_outlined,
               selectedIcon: Icons.home,
-              splashColor: Colors.blue,
-              borderBottomColor: Colors.blue,
-              backgroundShadowColor: Colors.white,
-              selectedIconColor: Colors.blue,
+              splashColor: Colors.redAccent,
+              borderBottomColor: Colors.redAccent,
+              selectedIconColor: Colors.redAccent,
+              unSelectedIconColor: Colors.grey),
+          SuperBottomNavigationBarItem(
+              unSelectedIcon: Icons.favorite_border,
+              selectedIcon: Icons.favorite,
+              splashColor: Colors.redAccent,
+              borderBottomColor: Colors.redAccent,
+              selectedIconColor: Colors.redAccent,
               unSelectedIconColor: Colors.grey),
           SuperBottomNavigationBarItem(
               unSelectedIcon: Icons.playlist_add,
               selectedIcon: Icons.playlist_add_check,
-              splashColor: Colors.blue,
-              borderBottomColor: Colors.blue,
-              backgroundShadowColor: Colors.white,
-              selectedIconColor: Colors.blue,
+              splashColor: Colors.redAccent,
+              borderBottomColor: Colors.redAccent,
+              selectedIconColor: Colors.redAccent,
               unSelectedIconColor: Colors.grey),
           SuperBottomNavigationBarItem(
               unSelectedIcon: Icons.settings_outlined,
               selectedIcon: Icons.settings,
-              splashColor: Colors.blue,
-              borderBottomColor: Colors.blue,
-              backgroundShadowColor: Colors.white,
-              selectedIconColor: Colors.blue,
-              unSelectedIconColor: Colors.grey),
+              splashColor: Colors.redAccent,
+              borderBottomColor: Colors.redAccent,
+              selectedIconColor: Colors.redAccent,
+              unSelectedIconColor: Colors.white),
         ],
         onSelected: (index) {
           if (index >= 0 && index < _pages.length) {

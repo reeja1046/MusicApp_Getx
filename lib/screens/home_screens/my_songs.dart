@@ -87,9 +87,12 @@ class _MySongsState extends State<MySongs> {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => NowPlaying(index: widget.index,nowPlayList: allSongs,)));
+                builder: (context) => NowPlaying(
+                      index: widget.index,
+                      nowPlayList: allSongs,
+                    )));
       },
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       leading: QueryArtworkWidget(
         id: allSongs[widget.index].id!,
         type: ArtworkType.AUDIO,
@@ -149,8 +152,8 @@ class _MySongsState extends State<MySongs> {
                                 onPressed: () {
                                   Navigator.of(context).pop();
                                   Navigator.of(context).push(MaterialPageRoute(
-                                      builder: (context) => CreatePlaylist(
-                                          song: widget.song)));
+                                      builder: (context) =>
+                                          CreatePlaylist(song: widget.song)));
                                 },
                                 child: const Text('Create New Playlist')),
                           ),

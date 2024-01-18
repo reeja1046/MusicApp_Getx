@@ -52,34 +52,35 @@ class _SearchScreenState extends State<SearchScreen> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 1, 30, 56),
-          title: Container(
-            width: double.infinity,
-            height: 40,
-            decoration: BoxDecoration(
-                color: Colors.white, borderRadius: BorderRadius.circular(5)),
-            child: Center(
-              child: TextField(
-                onTapOutside: (event) {
-                  FocusManager.instance.primaryFocus?.unfocus();
-                },
-                onChanged: (value) => updateList(value),
-                controller: textController,
-                decoration: InputDecoration(
-                    prefixIcon: const Icon(Icons.search),
-                    suffixIcon: IconButton(
-                        icon: const Icon(Icons.clear),
-                        onPressed: () {
-                          FocusManager.instance.primaryFocus?.unfocus();
-                          textController.clear();
-                          songDisplay = List<dynamic>.from(widget.songList);
-                          setState(() {});
-                        }),
-                    hintText: 'Search...',
-                    border: InputBorder.none),
-              ),
+        backgroundColor: Colors.black,
+        title: Container(
+          width: double.infinity,
+          height: 40,
+          decoration: BoxDecoration(
+              color: Colors.white, borderRadius: BorderRadius.circular(5)),
+          child: Center(
+            child: TextField(
+              onTapOutside: (event) {
+                FocusManager.instance.primaryFocus?.unfocus();
+              },
+              onChanged: (value) => updateList(value),
+              controller: textController,
+              decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  suffixIcon: IconButton(
+                      icon: const Icon(Icons.clear),
+                      onPressed: () {
+                        FocusManager.instance.primaryFocus?.unfocus();
+                        textController.clear();
+                        songDisplay = List<dynamic>.from(widget.songList);
+                        setState(() {});
+                      }),
+                  hintText: 'Search...',
+                  border: InputBorder.none),
             ),
-          )),
+          ),
+        ),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(10),
         child: (songDisplay.isEmpty)
@@ -100,6 +101,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   }
                   dynamic currentSong = songDisplay[index];
                   return ListTile(
+                    
                     onTap: () {
                       RecentlyPlayed recentlySong;
                       recentlySong = RecentlyPlayed(
@@ -154,12 +156,12 @@ class _SearchScreenState extends State<SearchScreen> {
                       style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
-                          color: Colors.white),
+                          color: Colors.black),
                     ),
                     subtitle: currentSong.artist == '<unknown>'
                         ? const Text(
                             'Unknown Artist',
-                            style: TextStyle(fontSize: 14, color: Colors.white),
+                            style: TextStyle(fontSize: 14, color: Colors.black),
                           )
                         : Text(
                             currentSong.artist!,
@@ -168,7 +170,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             style: const TextStyle(
                                 fontSize: 14,
                                 fontWeight: FontWeight.normal,
-                                color: Colors.white),
+                                color: Colors.black),
                           ),
                     trailing: PopupMenuButton(
                       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
@@ -238,7 +240,7 @@ class _SearchScreenState extends State<SearchScreen> {
                       ],
                       icon: const Icon(
                         Icons.more_vert,
-                        color: Colors.white,
+                        color: Colors.black,
                       ),
                     ),
                   );

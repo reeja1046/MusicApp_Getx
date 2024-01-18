@@ -111,235 +111,211 @@ class _NowPlayingState extends State<NowPlaying> {
                                     ],
                                   ),
                                 ),
-                                child: Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 10),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      AppBar(
-                                        leading: IconButton(
-                                            onPressed: () async {
-                                              await audioPlayer.pause();
-                                              Navigator.pop(context);
-                                            },
-                                            icon: const Icon(Icons.arrow_back)),
-                                        backgroundColor: const Color.fromARGB(
-                                            255, 1, 30, 56),
-                                        centerTitle: true,
-                                        title: const Text(
-                                          'Now Playing',
-                                          style: TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    AppBar(
+                                      leading: IconButton(
+                                          onPressed: () async {
+                                            await audioPlayer.pause();
+                                            Navigator.pop(context);
+                                          },
+                                          icon: const Icon(Icons.arrow_back)),
+                                      backgroundColor: Colors.black,
+                                      centerTitle: true,
+                                      title: const Text(
+                                        'Now Playing',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 20,
                                         ),
                                       ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      const Spacer(),
-                                      Marquee(
-                                        animationDuration:
-                                            const Duration(milliseconds: 6500),
-                                        directionMarguee:
-                                            DirectionMarguee.oneDirection,
-                                        pauseDuration:
-                                            const Duration(milliseconds: 1000),
-                                        child: Text(
-                                          audioPlayer.getCurrentAudioTitle,
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 20,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.01),
-                                      Text(
-                                        audioPlayer.getCurrentAudioArtist,
+                                    ),
+                                    const Spacer(),
+                                    Marquee(
+                                      animationDuration:
+                                          const Duration(milliseconds: 6500),
+                                      directionMarguee:
+                                          DirectionMarguee.oneDirection,
+                                      pauseDuration:
+                                          const Duration(milliseconds: 1000),
+                                      child: Text(
+                                        audioPlayer.getCurrentAudioTitle,
                                         style: const TextStyle(
-                                            color: Colors.white),
+                                          color: Colors.white,
+                                          fontSize: 20,
+                                        ),
                                       ),
-                                      Row(
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.01),
+                                    Text(
+                                      audioPlayer.getCurrentAudioArtist,
+                                      style:
+                                          const TextStyle(color: Colors.white),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        IconButton(
+                                            onPressed: () {
+                                              Navigator.of(context).push(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      CreatePlaylist(
+                                                          song: allDbSongs[
+                                                              widget.index]),
+                                                ),
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.playlist_add,
+                                              color: Colors.white,
+                                              size: 35,
+                                            )),
+                                        IconButton(
+                                          onPressed: () async {
+                                            (isalready(allDbSongs[widget.index]
+                                                    .id))
+                                                ? await removeFav(
+                                                    allDbSongs[widget.index].id,
+                                                    context)
+                                                : await addToFavorite(
+                                                    allDbSongs[widget.index].id,
+                                                    context);
+                                            setState(() {});
+                                          },
+                                          icon: (isalready(
+                                                  allDbSongs[widget.index].id))
+                                              ? const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.red,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.white,
+                                                ),
+                                          // Icon(
+                                          //   isFavorite
+                                          //       ? Icons.favorite
+                                          //       : Icons.favorite_border,
+                                          //   color: isFavorite
+                                          //       ? Colors.red
+                                          //       : Colors.white,
+                                          // ),
+                                          iconSize: 30,
+                                        ),
+                                      ],
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.03),
+                                    SizedBox(
+                                      width: MediaQuery.of(context).size.width *
+                                          0.75,
+                                      child: PlayerBuilder.realtimePlayingInfos(
+                                        player: audioPlayer,
+                                        builder:
+                                            (context, realtimePlayingInfos) {
+                                          final duration = realtimePlayingInfos
+                                              .current!.audio.duration;
+                                          final position = realtimePlayingInfos
+                                              .currentPosition;
+                                          return ProgressBar(
+                                            progress: position,
+                                            total: duration,
+                                            timeLabelTextStyle: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 16),
+                                            onSeek: (duration) {
+                                              audioPlayer.seek(duration);
+                                            },
+                                          );
+                                        },
+                                      ),
+                                    ),
+                                    SizedBox(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.02),
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(10),
+                                        color: Colors.grey.withOpacity(0.5),
+                                      ),
+                                      padding: const EdgeInsets.all(5),
+                                      child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           IconButton(
-                                              onPressed: () {
-                                                Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        CreatePlaylist(
-                                                            song: allDbSongs[
-                                                                widget.index]),
-                                                  ),
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.playlist_add,
-                                                color: Colors.white,
-                                                size: 35,
-                                              )),
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.shuffle,
+                                              size: 30,
+                                            ),
+                                            color: Colors.white,
+                                          ),
                                           IconButton(
                                             onPressed: () async {
-                                              (isalready(
-                                                      allDbSongs[widget.index]
-                                                          .id))
-                                                  ? await removeFav(
-                                                      allDbSongs[widget.index]
-                                                          .id,
-                                                      context)
-                                                  : await addToFavorite(
-                                                      allDbSongs[widget.index]
-                                                          .id,
-                                                      context);
-                                              setState(() {});
+                                              await audioPlayer.seekBy(
+                                                const Duration(seconds: -10),
+                                              );
                                             },
-                                            icon: (isalready(
-                                                    allDbSongs[widget.index]
-                                                        .id))
-                                                ? const Icon(
-                                                    Icons.favorite_border,
-                                                    color: Colors.red,
-                                                  )
-                                                : const Icon(
-                                                    Icons.favorite_border,
-                                                    color: Colors.white,
-                                                  ),
-                                            // Icon(
-                                            //   isFavorite
-                                            //       ? Icons.favorite
-                                            //       : Icons.favorite_border,
-                                            //   color: isFavorite
-                                            //       ? Colors.red
-                                            //       : Colors.white,
-                                            // ),
-                                            iconSize: 30,
+                                            icon: const Icon(
+                                              Icons.replay_10,
+                                              size: 30,
+                                            ),
+                                            color: Colors.white,
+                                          ),
+                                          PlayerBuilder.isPlaying(
+                                            player: audioPlayer,
+                                            builder: (context, isPlaying) {
+                                              return IconButton(
+                                                iconSize: 50,
+                                                onPressed: () async {
+                                                  await audioPlayer
+                                                      .playOrPause();
+                                                },
+                                                icon: Icon(
+                                                  (isPlaying)
+                                                      ? Icons
+                                                          .pause_circle_filled
+                                                      : Icons.play_circle_fill,
+                                                  size: 50,
+                                                ),
+                                                color: Colors.white,
+                                              );
+                                            },
+                                          ),
+                                          IconButton(
+                                            onPressed: () async {
+                                              await audioPlayer.seekBy(
+                                                const Duration(seconds: 10),
+                                              );
+                                            },
+                                            icon: const Icon(
+                                              Icons.forward_10,
+                                              size: 30,
+                                            ),
+                                            color: Colors.white,
+                                          ),
+                                          IconButton(
+                                            onPressed: () {},
+                                            icon: const Icon(
+                                              Icons.repeat,
+                                              size: 30,
+                                            ),
+                                            color: Colors.white,
                                           ),
                                         ],
                                       ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.03),
-                                      SizedBox(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.75,
-                                        child:
-                                            PlayerBuilder.realtimePlayingInfos(
-                                          player: audioPlayer,
-                                          builder:
-                                              (context, realtimePlayingInfos) {
-                                            final duration =
-                                                realtimePlayingInfos
-                                                    .current!.audio.duration;
-                                            final position =
-                                                realtimePlayingInfos
-                                                    .currentPosition;
-                                            return ProgressBar(
-                                              progress: position,
-                                              total: duration,
-                                              timeLabelTextStyle:
-                                                  const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 16),
-                                              onSeek: (duration) {
-                                                audioPlayer.seek(duration);
-                                              },
-                                            );
-                                          },
-                                        ),
-                                      ),
-                                      SizedBox(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              0.02),
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          color: Colors.grey.withOpacity(0.5),
-                                        ),
-                                        padding: const EdgeInsets.all(5),
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.shuffle,
-                                                size: 30,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                            IconButton(
-                                              onPressed: () async {
-                                                await audioPlayer.seekBy(
-                                                  const Duration(seconds: -10),
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.replay_10,
-                                                size: 30,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                            PlayerBuilder.isPlaying(
-                                              player: audioPlayer,
-                                              builder: (context, isPlaying) {
-                                                return IconButton(
-                                                  iconSize: 50,
-                                                  onPressed: () async {
-                                                    await audioPlayer
-                                                        .playOrPause();
-                                                  },
-                                                  icon: Icon(
-                                                    (isPlaying)
-                                                        ? Icons
-                                                            .pause_circle_filled
-                                                        : Icons
-                                                            .play_circle_fill,
-                                                    size: 50,
-                                                  ),
-                                                  color: Colors.white,
-                                                );
-                                              },
-                                            ),
-                                            IconButton(
-                                              onPressed: () async {
-                                                await audioPlayer.seekBy(
-                                                  const Duration(seconds: 10),
-                                                );
-                                              },
-                                              icon: const Icon(
-                                                Icons.forward_10,
-                                                size: 30,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                            IconButton(
-                                              onPressed: () {},
-                                              icon: const Icon(
-                                                Icons.repeat,
-                                                size: 30,
-                                              ),
-                                              color: Colors.white,
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                    ),
+                                  ],
                                 ),
                               ),
                             ),

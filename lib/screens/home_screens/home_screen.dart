@@ -30,11 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 1, 30, 56),
+          backgroundColor: Colors.white,
           centerTitle: true,
           title: const Text(
-            'ChillaX',
-            style: TextStyle(fontSize: 35),
+            'Seraphine',
+            style: TextStyle(fontSize: 30, color: Colors.redAccent),
           )),
       body: SafeArea(
         child: Padding(
@@ -54,9 +54,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     title: 'Mostly Played',
                     onPressed: const MostlyPlayedScreen()),
               ]),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.05),
               SizedBox(width: MediaQuery.of(context).size.width * 0.03),
-              LibraryButtons(title: 'Favorites', onPressed: const AddToFav()),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -74,7 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       },
                       icon: const Icon(
                         Icons.search,
-                        color: Colors.white,
+                        color: Colors.black,
                         size: 25,
                       ))
                 ],
@@ -103,7 +101,7 @@ class _HomeScreenState extends State<HomeScreen> {
   subtitle({required name}) {
     return Text(
       '$name',
-      style: const TextStyle(color: Colors.white, fontSize: 20),
+      style: const TextStyle(color: Colors.black, fontSize: 20),
     );
   }
 }

@@ -18,18 +18,9 @@ class LibraryButtons extends StatelessWidget {
           height: MediaQuery.of(context).size.height * 0.15,
           width: MediaQuery.of(context).size.width * 0.42,
           decoration: BoxDecoration(
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.blue.withOpacity(0.5),
-                  spreadRadius: 2.5,
-                  blurRadius: 5.5,
-                  offset: const Offset(0, 3),
-                ),
-              ],
-              borderRadius: BorderRadius.circular(20),
-              image: const DecorationImage(
-                  image: AssetImage('assets/images/bg_image4.jpeg'),
-                  fit: BoxFit.cover)),
+            color: Colors.black,
+            borderRadius: BorderRadius.circular(20),
+          ),
           alignment: Alignment.center,
           child: Text(
             title,
