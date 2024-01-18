@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:marquee_widget/marquee_widget.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
-import 'package:music_app/screens/playlist/create_playlist.dart';
+import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../database/model/song_model.dart';
 

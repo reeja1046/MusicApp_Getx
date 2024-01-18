@@ -1,12 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/home_screens/library/favourites.dart';
-import 'package:music_app/screens/home_screens/library/library_buttons.dart';
-import 'package:music_app/screens/home_screens/library/mostly_played.dart';
-import 'package:music_app/screens/home_screens/my_songs.dart';
-import 'package:music_app/screens/home_screens/library/recently_played.dart';
-import 'package:music_app/screens/widgets/search_screen.dart';
+import 'package:music_app/view/screens/favorites/favourites.dart';
+import 'package:music_app/view/screens/homescreen/widgets/library_buttons.dart';
+import 'package:music_app/view/screens/mostlyplayed/mostly_played.dart';
+import 'package:music_app/view/screens/homescreen/widgets/my_songs.dart';
+import 'package:music_app/view/screens/recentlyplayed/recently_played.dart';
+import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 
 List<Audio> audioList = [];
 

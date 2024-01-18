@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/screens/widgets/search_screen.dart';
+import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 
 class ScreenAppbarWidget extends StatelessWidget {
   final String title;

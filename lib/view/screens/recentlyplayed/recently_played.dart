@@ -4,36 +4,37 @@ import 'package:music_app/database/functions/db_func.dart';
 import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/playlist/create_playlist.dart';
-import 'package:music_app/screens/widgets/appbar_widget.dart';
+import 'package:music_app/view/screens/playlist/create_playlist.dart';
+import 'package:music_app/view/screens/homescreen/widgets/appbar_widget.dart';
+import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-import '../../widgets/main_play_screen.dart';
-
-class MostlyPlayedScreen extends StatefulWidget {
-  const MostlyPlayedScreen({super.key});
+class RecentlyPlayedScreen extends StatefulWidget {
+  const RecentlyPlayedScreen({super.key});
 
   @override
-  State<MostlyPlayedScreen> createState() => _MostlyPlayedScreenState();
+  State<RecentlyPlayedScreen> createState() => _RecentlyPlayedScreenState();
 }
 
 AssetsAudioPlayer audioPlayers = AssetsAudioPlayer.withId('0');
-List<Audio> convertMAudio = [];
+List<Audio> convertAudio = [];
 
-class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
-  List<MostlyPlayed> mostdbsongs =
-      mostlyplayeddb.values.toList().reversed.toList();
-  List<MostlyPlayed> mostlySongs = [];
+class _RecentlyPlayedScreenState extends State<RecentlyPlayedScreen> {
+  List<RecentlyPlayed> recentdbsongs =
+      recentplayeddb.values.toList().reversed.toList();
   @override
   void initState() {
-    int i = 0;
-    for (var element in mostdbsongs) {
-      if (element.count! > 5) {
-        mostlySongs.remove(element);
-        mostlySongs.insert(i, element);
-        mostlySongs.sort((a, b) => b.count!.compareTo(a.count!));
-        i++;
-      }
+    for (var element in recentdbsongs) {
+      convertAudio.add(
+        Audio.file(
+          element.songurl!,
+          metas: Metas(
+            title: element.title,
+            artist: element.artist,
+            id: element.id.toString(),
+          ),
+        ),
+      );
     }
     super.initState();
   }
@@ -47,10 +48,10 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               ScreenAppbarWidget(
-                title: 'Mostly Played',
-                songList: mostlySongs,
+                title: 'Recently Played',
+                songList: recentdbsongs,
               ),
-              if (mostlySongs.isNotEmpty)
+              if (recentdbsongs.isNotEmpty)
                 TextButton(
                     onPressed: () {
                       showDialog(
@@ -65,9 +66,9 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                                     },
                                     child: const Text('Cancel')),
                                 ElevatedButton(
-                                    onPressed: () {
-                                      mostlyplayeddb.clear();
-                                      mostdbsongs.clear();
+                                    onPressed: () async {
+                                      await recentplayeddb.clear();
+                                      recentdbsongs.clear();
                                       setState(() {});
                                       Navigator.of(ctx).pop();
                                       ScaffoldMessenger.of(ctx).showSnackBar(
@@ -83,7 +84,9 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
                           });
                     },
                     child: const Text('Clear All')),
-              MostlyPlayedSongs(mostlydbsongs: mostlySongs)
+              RecentlyListView(
+                recentdbsongs: recentdbsongs,
+              ),
             ],
           ),
         ),
@@ -92,20 +95,21 @@ class _MostlyPlayedScreenState extends State<MostlyPlayedScreen> {
   }
 }
 
-class MostlyPlayedSongs extends StatelessWidget {
-  final List<MostlyPlayed> mostlydbsongs;
-  MostlyPlayedSongs({super.key, required this.mostlydbsongs});
+class RecentlyListView extends StatelessWidget {
+  final List<RecentlyPlayed> recentdbsongs;
+  const RecentlyListView({super.key, required this.recentdbsongs});
 
   @override
   Widget build(BuildContext context) {
-    final box = SongBox.getinstance();
-    return (mostlydbsongs.isEmpty)
+    final box = RecentlyPlayedBox.getinstance();
+
+    return (recentdbsongs.isEmpty)
         ? Center(
             child: Padding(
               padding: EdgeInsets.only(
                   top: MediaQuery.of(context).size.height * 0.4),
               child: const Text(
-                "Empty !!! ",
+                "You haven't played anything ! ",
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 16,
@@ -118,39 +122,41 @@ class MostlyPlayedSongs extends StatelessWidget {
             child: ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: mostlydbsongs.length,
+              itemCount: recentdbsongs.length,
               itemBuilder: (context, index) {
-                if (index == mostlydbsongs.length) {
+                if (index == recentdbsongs.length) {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,
                   );
                 }
-                MostlyPlayed currentSong = mostlydbsongs[index];
+                RecentlyPlayed currentSong = recentdbsongs[index];
                 return ListTile(
                   tileColor: Colors.black,
                   onTap: () {
-                    MostlyPlayed mostlySong;
-                    mostlySong = MostlyPlayed(
+                    RecentlyPlayed recentlySong;
+                    recentlySong = RecentlyPlayed(
                         title: currentSong.title,
                         artist: currentSong.artist,
                         duration: currentSong.duration,
                         songurl: currentSong.songurl,
-                        id: currentSong.id,
-                        count: 1);
+                        id: currentSong.id);
 
-                    addMostly(mostlySong);
+                    addRecently(recentlySong);
 
                     audioPlayers.open(
-                        Playlist(audios: convertMAudio, startIndex: index),
-                        showNotification: true,
-                        headPhoneStrategy:
-                            HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-                        loopMode: LoopMode.playlist);
-
+                      Playlist(
+                        audios: convertAudio,
+                        startIndex: index,
+                      ),
+                      headPhoneStrategy:
+                          HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+                      showNotification: true,
+                      loopMode: LoopMode.playlist,
+                    );
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => NowPlaying(
                               index: index,
-                              nowPlayList: mostlydbsongs,
+                              nowPlayList: recentdbsongs,
                             )));
                   },
                   leading: QueryArtworkWidget(
@@ -228,8 +234,8 @@ class MostlyPlayedSongs extends StatelessWidget {
                                                   MaterialPageRoute(
                                                       builder: (context) =>
                                                           CreatePlaylist(
-                                                            song: currentSong,
-                                                          )));
+                                                              song:
+                                                                  currentSong)));
                                             },
                                             child: const Text(
                                                 'Create New Playlist')),

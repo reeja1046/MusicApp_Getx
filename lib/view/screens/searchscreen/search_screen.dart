@@ -4,9 +4,9 @@ import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/playlist/add_to_playlist.dart';
-import 'package:music_app/screens/playlist/create_playlist.dart';
-import 'package:music_app/screens/widgets/main_play_screen.dart';
+import 'package:music_app/view/screens/playlist/add_to_playlist.dart';
+import 'package:music_app/view/screens/playlist/create_playlist.dart';
+import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SearchScreen extends StatefulWidget {

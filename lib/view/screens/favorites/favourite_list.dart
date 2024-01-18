@@ -4,7 +4,7 @@ import 'package:marquee_widget/marquee_widget.dart';
 import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/home_screens/home_screen.dart';
+import 'package:music_app/view/screens/homescreen/home_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 import '../../widgets/main_play_screen.dart';

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:music_app/database/functions/db_func.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/playlist/playlist_songs.dart';
+import 'package:music_app/view/screens/playlist/playlist_songs.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class AllPlaylist extends StatefulWidget {
@@ -153,9 +153,9 @@ class _AllPlaylistState extends State<AllPlaylist> {
               child: Padding(
                 padding: EdgeInsets.only(
                     bottom: MediaQuery.of(context).size.height * 0.08),
-                child: Column(
+                child: const Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     Text(
                       "Empty Playlist",
                       textAlign: TextAlign.center,
@@ -172,8 +172,8 @@ class _AllPlaylistState extends State<AllPlaylist> {
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(children: [
-                  Row(
-                    children: const [
+                  const Row(
+                    children: [
                       Text(
                         'Your Playlists',
                         style: TextStyle(fontSize: 20, color: Colors.white),

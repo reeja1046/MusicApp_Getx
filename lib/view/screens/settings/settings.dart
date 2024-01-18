@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:music_app/screens/settings_screens/privacy_policy.dart';
+import 'package:music_app/view/screens/settings/privacy_policy.dart';
 import 'package:share_plus/share_plus.dart';
 
 class MainSettings extends StatefulWidget {

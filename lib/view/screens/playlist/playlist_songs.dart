@@ -4,8 +4,8 @@ import 'package:marquee_widget/marquee_widget.dart';
 import 'package:music_app/database/functions/db_func.dart';
 import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/widgets/main_play_screen.dart';
-import 'package:music_app/screens/widgets/search_screen.dart';
+import 'package:music_app/view/widgets/main_play_screen.dart';
+import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class EachPlaylistSongs extends StatefulWidget {

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/screens/home_screens/library/favourite_list.dart';
-import 'package:music_app/screens/widgets/appbar_widget.dart';
+import 'package:music_app/view/screens/favorites/favourite_list.dart';
+import 'package:music_app/view/screens/homescreen/widgets/appbar_widget.dart';
 
 import '../../../database/functions/db_func.dart';
 

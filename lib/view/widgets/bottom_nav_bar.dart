@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/screens/home_screens/home_screen.dart';
-import 'package:music_app/screens/home_screens/library/favourites.dart';
-import 'package:music_app/screens/playlist/playlist.dart';
-import 'package:music_app/screens/settings_screens/settings.dart';
+import 'package:music_app/view/screens/homescreen/home_screen.dart';
+import 'package:music_app/view/screens/favorites/favourites.dart';
+import 'package:music_app/view/screens/playlist/playlist.dart';
+import 'package:music_app/view/screens/settings/settings.dart';
 
 import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 
