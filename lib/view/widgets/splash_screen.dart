@@ -1,5 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
-import 'package:music_app/database/functions/db_functions.dart';
+import 'package:get/get.dart';
+import 'package:music_app/controller/home_controller.dart';
 import 'package:music_app/view/widgets/bottom_nav_bar.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -10,11 +12,13 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  final HomeController homeController = Get.put(HomeController());
+
   @override
   void initState() {
-    super.initState();
-    requestPermission();
     gotomain();
+    homeController.fetchAllSongs();
+    super.initState();
   }
 
   @override
@@ -43,8 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   gotomain() {
     Future.delayed(const Duration(seconds: 2), () {
-      Navigator.of(context).pushReplacement(
-          MaterialPageRoute(builder: (context) => BottomNavBar()));
+      Get.off(() => BottomNavBar());
     });
   }
 }

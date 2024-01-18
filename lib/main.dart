@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:music_app/database/functions/db_func.dart';
+import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
 import 'package:music_app/view/widgets/splash_screen.dart';
 
@@ -11,6 +12,8 @@ Future<void> main() async {
 
   Hive.registerAdapter(SongAdapter());
   await Hive.openBox<Song>(boxname);
+  await requestPermission();
+  runApp(const MyApp());
 
   Hive.registerAdapter(FavSongsAdapter());
   openFavDb();
@@ -23,8 +26,6 @@ Future<void> main() async {
 
   Hive.registerAdapter(PlayListAdapter());
   openplaylistDB();
-
-  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {

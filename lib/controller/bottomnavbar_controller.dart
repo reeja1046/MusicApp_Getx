@@ -14,7 +14,7 @@ class NavbarController extends GetxController {
   }
 
   final pages = [
-     HomeScreen(),
+    const HomeScreen(),
     const AddToFav(),
     const AllPlaylist(),
     const MainSettings(),

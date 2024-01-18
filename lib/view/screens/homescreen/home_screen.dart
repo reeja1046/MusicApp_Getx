@@ -1,5 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_app/controller/home_controller.dart';
 import 'package:music_app/database/model/song_model.dart';
 import 'package:music_app/view/screens/homescreen/widgets/library_buttons.dart';
 import 'package:music_app/view/screens/mostlyplayed/mostly_played.dart';
@@ -8,25 +10,16 @@ import 'package:music_app/view/screens/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 
 List<Audio> audioList = [];
-
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
 final box = SongBox.getinstance();
-late List<Song> allSongs;
+List<Song> allSongs = box.values.toList();
 
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    allSongs = box.values.toList();
-    super.initState();
-  }
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
+
     return Scaffold(
       appBar: AppBar(
           backgroundColor: Colors.white,
@@ -46,12 +39,13 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
                 LibraryButtons(
                   title: 'Recently Played',
-                  onPressed: const RecentlyPlayedScreen(),
+                  onPressed: () => Get.to(() => const RecentlyPlayedScreen()),
                 ),
                 SizedBox(width: MediaQuery.of(context).size.width * 0.05),
                 LibraryButtons(
-                    title: 'Mostly Played',
-                    onPressed: const MostlyPlayedScreen()),
+                  title: 'Mostly Played',
+                  onPressed: () => Get.to(() => const MostlyPlayedScreen()),
+                ),
               ]),
               SizedBox(width: MediaQuery.of(context).size.width * 0.03),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -61,13 +55,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   subtitle(name: 'Your Collections'),
                   IconButton(
                       onPressed: () {
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => SearchScreen(
-                              songList: allSongs,
-                            ),
-                          ),
-                        );
+                        Get.to(() =>
+                            SearchScreen(songList: homeController.dbAllSongs));
                       },
                       icon: const Icon(
                         Icons.search,
@@ -77,18 +66,20 @@ class _HomeScreenState extends State<HomeScreen> {
                 ],
               ),
               SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              ListView.separated(
-                physics: const NeverScrollableScrollPhysics(),
-                shrinkWrap: true,
-                itemBuilder: (context, index) => MySongs(
-                  index: index,
-                  song: allSongs[index],
-                  songlist: const [],
+              Obx(
+                () => ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) => MySongs(
+                    index: index,
+                    song: homeController.dbAllSongs[index],
+                    songlist: const [],
+                  ),
+                  separatorBuilder: (context, index) => const Divider(
+                    height: 10,
+                  ),
+                  itemCount: homeController.dbAllSongs.length,
                 ),
-                separatorBuilder: (context, index) => const Divider(
-                  height: 10,
-                ),
-                itemCount: allSongs.length,
               ),
             ]),
           ),

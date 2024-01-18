@@ -6,6 +6,8 @@ import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 class BottomNavBar extends StatelessWidget {
   final NavbarController controller = Get.put(NavbarController());
 
+  BottomNavBar({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
