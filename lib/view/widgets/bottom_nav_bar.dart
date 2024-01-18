@@ -1,34 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/view/screens/homescreen/home_screen.dart';
-import 'package:music_app/view/screens/favorites/favourites.dart';
-import 'package:music_app/view/screens/playlist/playlist.dart';
-import 'package:music_app/view/screens/settings/settings.dart';
-
+import 'package:get/get.dart';
+import 'package:music_app/controller/bottomnavbar_controller.dart';
 import 'package:super_bottom_navigation_bar/super_bottom_navigation_bar.dart';
 
-class BottomNavBar extends StatefulWidget {
-  const BottomNavBar({super.key});
-
-  @override
-  State<BottomNavBar> createState() => _BottomNavBarState();
-}
-
-class _BottomNavBarState extends State<BottomNavBar> {
-  int selectedIndex = 0;
-
-  final _pages = [
-    const HomeScreen(),
-    const AddToFav(),
-    const AllPlaylist(),
-    const MainSettings(),
-  ];
+class BottomNavBar extends StatelessWidget {
+  final NavbarController controller = Get.put(NavbarController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[selectedIndex],
+      body: Obx(() => controller.pages[controller.selectedIndex.value]),
       bottomNavigationBar: SuperBottomNavigationBar(
         backgroundColor: Colors.black,
+        currentIndex: controller.selectedIndex.value,
         items: const [
           SuperBottomNavigationBarItem(
               unSelectedIcon: Icons.home_outlined,
@@ -60,11 +44,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
               unSelectedIconColor: Colors.white),
         ],
         onSelected: (index) {
-          if (index >= 0 && index < _pages.length) {
-            setState(() {
-              selectedIndex = index;
-            });
-          }
+          controller.changeSelectedIndex(index);
         },
       ),
     );

@@ -1,7 +1,6 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/view/screens/favorites/favourites.dart';
 import 'package:music_app/view/screens/homescreen/widgets/library_buttons.dart';
 import 'package:music_app/view/screens/mostlyplayed/mostly_played.dart';
 import 'package:music_app/view/screens/homescreen/widgets/my_songs.dart';
