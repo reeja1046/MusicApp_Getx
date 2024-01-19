@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget {
           centerTitle: true,
           title: const Text(
             'Seraphine',
-            style: TextStyle(fontSize: 30, color: Colors.redAccent),
+            style: TextStyle(fontSize: 30, color: Colors.black),
           )),
       body: SafeArea(
         child: Padding(
