@@ -1,4 +1,3 @@
-
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:music_app/database/functions/db_functions.dart';
@@ -15,8 +14,6 @@ class RecentlyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final box = RecentlyPlayedBox.getinstance();
-
     return (recentdbsongs.isEmpty)
         ? const Center(
             child: Text(
@@ -41,6 +38,8 @@ class RecentlyListView extends StatelessWidget {
                 }
                 RecentlyPlayed currentSong = recentdbsongs[index];
                 return ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
                   tileColor: Colors.black,
                   onTap: () {
                     RecentlyPlayed recentlySong;
@@ -120,8 +119,8 @@ class RecentlyListView extends StatelessWidget {
                           Navigator.of(context).pop();
                         },
                         child: Text(isalready(currentSong.id)
-                            ? 'Remove from favourites'
-                            : 'Add to favourites'),
+                            ? 'Remove from favorites'
+                            : 'Add to favorites'),
                       )),
                       PopupMenuItem(
                         child: TextButton.icon(

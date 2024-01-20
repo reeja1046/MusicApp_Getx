@@ -19,15 +19,13 @@ addToFavorite(int? id, BuildContext context) {
 
     const snackbar = SnackBar(
       content: Text(
-        'Added to favourites',
-        style: TextStyle(
-            color: Color.fromARGB(255, 1, 30, 56), fontWeight: FontWeight.bold),
+        'Added to favorites',
+        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
       ),
       dismissDirection: DismissDirection.down,
       behavior: SnackBarBehavior.floating,
       elevation: 70,
       duration: Duration(seconds: 1),
-      backgroundColor: Colors.lightGreenAccent,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   } else {
@@ -35,15 +33,13 @@ addToFavorite(int? id, BuildContext context) {
     favsongsdb.deleteAt(favIndex);
     const snackbar = SnackBar(
       content: Text(
-        'Removed from favourites',
-        style: TextStyle(
-            color: Color.fromARGB(255, 1, 30, 56), fontWeight: FontWeight.bold),
+        'Removed from favorites',
+        style: TextStyle(color: Colors.redAccent, fontWeight: FontWeight.bold),
       ),
       dismissDirection: DismissDirection.down,
       behavior: SnackBarBehavior.floating,
       elevation: 70,
       duration: Duration(seconds: 1),
-      backgroundColor: Colors.redAccent,
     );
     ScaffoldMessenger.of(context).showSnackBar(snackbar);
   }
@@ -83,6 +79,3 @@ removeFav(int? songid, BuildContext context) async {
   ScaffoldMessenger.of(context).showSnackBar(snackbar);
 }
 
-// deletefav(int index, BuildContext context) async {
-//   await favsongsdb.deleteAt(favsongsdb.length - index - 1);
-// }
