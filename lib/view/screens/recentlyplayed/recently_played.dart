@@ -2,8 +2,6 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
-import 'package:music_app/database/functions/db_func.dart';
-import 'package:music_app/database/model/song_model.dart';
 import 'package:music_app/view/screens/recentlyplayed/recently_listtile.dart';
 
 AssetsAudioPlayer audioPlayers = AssetsAudioPlayer.withId('0');
@@ -14,8 +12,6 @@ class RecentlyPlayedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<RecentlyPlayed> recentdbsongs =
-        recentplayeddb.values.toList().reversed.toList();
     final RecentlyPlayedController recentlyPlayedController =
         Get.put(RecentlyPlayedController());
     return Scaffold(
@@ -47,7 +43,7 @@ class RecentlyPlayedScreen extends StatelessWidget {
                                 child: const Text('Cancel'),
                               ),
                               ElevatedButton(
-                                onPressed: () async {
+                                onPressed: () {
                                   recentlyPlayedController
                                       .clearRecentlyPlayedSongs();
                                   Navigator.of(ctx).pop();
@@ -72,7 +68,8 @@ class RecentlyPlayedScreen extends StatelessWidget {
         ],
       ),
       body: SafeArea(
-        child: RecentlyListView(recentdbsongs: recentdbsongs),
+        child: RecentlyListView(
+            recentdbsongs: recentlyPlayedController.recentlyplayeddbsongs),
       ),
     );
   }

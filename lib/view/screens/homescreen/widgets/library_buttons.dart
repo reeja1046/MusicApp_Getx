@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class LibraryButtons extends StatelessWidget {
@@ -13,9 +12,7 @@ class LibraryButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        if (onPressed is Function) {
-          onPressed();
-        }
+        onPressed();
       },
       child: Container(
         height: MediaQuery.of(context).size.height * 0.15,

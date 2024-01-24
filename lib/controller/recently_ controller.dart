@@ -3,10 +3,9 @@ import 'package:get/get.dart';
 import 'package:music_app/database/functions/db_func.dart';
 import 'package:music_app/database/model/song_model.dart';
 
-
-class RecentlyPlayedController extends GetxController{
-var recentlyplayeddbsongs = <RecentlyPlayed>[].obs;
-var convertRecentlyAudios = <Audio>[].obs;
+class RecentlyPlayedController extends GetxController {
+  var recentlyplayeddbsongs = <RecentlyPlayed>[].obs;
+  var convertRecentlyAudios = <Audio>[].obs;
 
   @override
   void onInit() {
@@ -14,9 +13,10 @@ var convertRecentlyAudios = <Audio>[].obs;
     super.onInit();
   }
 
-Future<void> fetchAllSongs() async {
-    recentlyplayeddbsongs.value = recentplayeddb.values.toList().reversed.toList();
-convertRecentlyAudios.clear();
+  Future<void> fetchAllSongs() async {
+    recentlyplayeddbsongs.value =
+        recentplayeddb.values.toList().reversed.toList();
+    convertRecentlyAudios.clear();
     for (var element in recentlyplayeddbsongs) {
       convertRecentlyAudios.add(
         Audio.file(
@@ -31,27 +31,26 @@ convertRecentlyAudios.clear();
     }
   }
 
-addRecently(RecentlyPlayed song) {
-  int index;
-  List<RecentlyPlayed> recentList = recentplayeddb.values.toList();
-  bool isnotavailable = recentList.where((element) {
-    return element.title == song.title;
-  }).isEmpty;
-  if (isnotavailable == true) {
-    recentplayeddb.add(song);
-  } else {
-    index = recentList.indexWhere((element) => element.title == song.title);
-    recentplayeddb.deleteAt(index);
-    recentplayeddb.add(song);
+  addRecently(RecentlyPlayed song) {
+    int index;
+    List<RecentlyPlayed> recentList = recentplayeddb.values.toList();
+    bool isnotavailable = recentList.where((element) {
+      return element.title == song.title;
+    }).isEmpty;
+    if (isnotavailable == true) {
+      recentplayeddb.add(song);
+      fetchAllSongs();
+    } else {
+      index = recentList.indexWhere((element) => element.title == song.title);
+      recentplayeddb.deleteAt(index);
+      recentplayeddb.add(song);
+      fetchAllSongs();
+    }
   }
-}
 
   void clearRecentlyPlayedSongs() {
+    recentlyplayeddbsongs.clear();
     recentplayeddb.clear();
     convertRecentlyAudios.clear();
-    recentlyplayeddbsongs.clear();
   }
-  
 }
-
-

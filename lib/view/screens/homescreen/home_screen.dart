@@ -2,16 +2,14 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/home_controller.dart';
-import 'package:music_app/database/model/song_model.dart';
+import 'package:music_app/view/screens/homescreen/widgets/allsongslist.dart';
 import 'package:music_app/view/screens/homescreen/widgets/library_buttons.dart';
 import 'package:music_app/view/screens/mostlyplayed/mostly_played.dart';
-import 'package:music_app/view/screens/homescreen/widgets/my_songs.dart';
 import 'package:music_app/view/screens/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 
 List<Audio> audioList = [];
-final box = SongBox.getinstance();
-List<Song> allSongs = box.values.toList();
+// List<Song> allSongs = box.values.toList();
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -65,22 +63,7 @@ class HomeScreen extends StatelessWidget {
                       ))
                 ],
               ),
-              SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-              Obx(
-                () => ListView.separated(
-                  physics: const NeverScrollableScrollPhysics(),
-                  shrinkWrap: true,
-                  itemBuilder: (context, index) => MySongs(
-                    index: index,
-                    song: homeController.dbAllSongs[index],
-                    songlist: const [],
-                  ),
-                  separatorBuilder: (context, index) => const Divider(
-                    height: 10,
-                  ),
-                  itemCount: homeController.dbAllSongs.length,
-                ),
-              ),
+              const AllSongsList(),
             ]),
           ),
         ),

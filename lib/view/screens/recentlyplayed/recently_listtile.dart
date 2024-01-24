@@ -1,5 +1,7 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
@@ -14,6 +16,9 @@ class RecentlyListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final RecentlyPlayedController recentlyController =
+        Get.put(RecentlyPlayedController());
+
     return (recentdbsongs.isEmpty)
         ? const Center(
             child: Text(
@@ -42,6 +47,8 @@ class RecentlyListView extends StatelessWidget {
                       borderRadius: BorderRadius.circular(10)),
                   tileColor: Colors.black,
                   onTap: () {
+                    print(recentlyController.recentlyplayeddbsongs.length);
+
                     RecentlyPlayed recentlySong;
                     recentlySong = RecentlyPlayed(
                         title: currentSong.title,
@@ -50,7 +57,7 @@ class RecentlyListView extends StatelessWidget {
                         songurl: currentSong.songurl,
                         id: currentSong.id);
 
-                    addRecently(recentlySong);
+                    // addRecently(recentlySong);
 
                     audioPlayers.open(
                       Playlist(
