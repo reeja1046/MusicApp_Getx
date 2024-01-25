@@ -12,8 +12,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class MostlyListView extends StatelessWidget {
   final List<MostlyPlayed> mostlydbsongs;
-  const MostlyListView({super.key, required this.mostlydbsongs});
+  MostlyListView({super.key, required this.mostlydbsongs});
 
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
   @override
   Widget build(BuildContext context) {
     final MostlyPlayedController mostlyController =
@@ -74,16 +75,16 @@ class MostlyListView extends StatelessWidget {
                         id: currentSong.id);
                     recentlyController.addRecently(recentlyPlayed);
 
-                    audioPlayers.open(
-                      Playlist(
-                        audios: convertAudio,
-                        startIndex: index,
-                      ),
-                      headPhoneStrategy:
-                          HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-                      showNotification: true,
-                      loopMode: LoopMode.playlist,
-                    );
+                    // audioPlayer.open(
+                    //   Playlist(
+                    //     audios: convertAudio,
+                    //     startIndex: index,
+                    //   ),
+                    //   headPhoneStrategy:
+                    //       HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+                    //   showNotification: true,
+                    //   loopMode: LoopMode.playlist,
+                    // );
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => NowPlaying(
                               index: index,

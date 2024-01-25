@@ -1,11 +1,7 @@
-import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/view/screens/library/recentlyplayed/recently_listtile.dart';
-
-AssetsAudioPlayer audioPlayers = AssetsAudioPlayer.withId('0');
-List<Audio> convertAudio = [];
 
 class RecentlyPlayedScreen extends StatelessWidget {
   const RecentlyPlayedScreen({super.key});
@@ -67,10 +63,41 @@ class RecentlyPlayedScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: SafeArea(
-        child: RecentlyListView(
-            recentdbsongs: recentlyPlayedController.recentlyplayeddbsongs),
+      body: Obx(
+        () => Padding(
+          padding: const EdgeInsets.all(10),
+          child: (recentlyPlayedController.recentlyplayeddbsongs.isEmpty)
+              ? const Center(child: Text("You haven't played anything "))
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount:
+                      recentlyPlayedController.recentlyplayeddbsongs.length,
+                  itemBuilder: (context, index) {
+                    if (index ==
+                        recentlyPlayedController.recentlyplayeddbsongs.length) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                      );
+                    }
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.005),
+                      child: RecentlyListView(
+                        currentSong: recentlyPlayedController
+                            .recentlyplayeddbsongs[index],
+                        convertAudios:
+                            recentlyPlayedController.convertRecentlyAudios,
+                        index: index,
+                      ),
+                    );
+                  },
+                ),
+        ),
       ),
+      //  SafeArea(
+      //   child: RecentlyListView(
+      //       recentdbsongs: recentlyPlayedController.recentlyplayeddbsongs),
+      // ),
     );
   }
 }

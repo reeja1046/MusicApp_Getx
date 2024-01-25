@@ -197,7 +197,6 @@ import 'package:marquee_widget/marquee_widget.dart';
 import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
-import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
 import 'package:music_app/view/screens/playlist/add_to_playlist.dart';
 import 'package:music_app/view/screens/playlist/create_playlist.dart';

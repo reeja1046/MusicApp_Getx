@@ -124,8 +124,9 @@ import 'package:on_audio_query/on_audio_query.dart';
 class FavListView extends StatelessWidget {
   final List<FavSongs> favdbsongs;
 
-  const FavListView({super.key, required this.favdbsongs});
+  FavListView({super.key, required this.favdbsongs});
 
+  AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
   @override
   Widget build(BuildContext context) {
     final MostlyPlayedController mostlyController =
@@ -145,7 +146,7 @@ class FavListView extends StatelessWidget {
             ),
           )
         : Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
@@ -163,6 +164,7 @@ class FavListView extends StatelessWidget {
                   tileColor: Colors.black,
                   onTap: () {
                     print(favController.favDbSongs.length);
+
                     MostlyPlayed mostlySong;
                     mostlySong = MostlyPlayed(
                         title: currentSong.title,
@@ -183,21 +185,24 @@ class FavListView extends StatelessWidget {
                         id: currentSong.id);
                     recentlyController.addRecently(recentlyPlayed);
 
-                    audioPlayers.open(
-                      Playlist(
-                        audios: convertAudio,
-                        startIndex: index,
-                      ),
-                      headPhoneStrategy:
-                          HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-                      showNotification: true,
-                      loopMode: LoopMode.playlist,
-                    );
-                    Navigator.of(context).push(MaterialPageRoute(
+                    // audioPlayers.open(
+                    //   Playlist(
+                    //     audios: convertAudio,
+                    //     startIndex: index,
+                    //   ),
+                    //   headPhoneStrategy:
+                    //       HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+                    //   showNotification: true,
+                    //   loopMode: LoopMode.playlist,
+                    // );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
                         builder: (context) => NowPlaying(
-                              index: index,
-                              nowPlayList: favdbsongs,
-                            )));
+                          index: index,
+                          nowPlayList: favdbsongs,
+                        ),
+                      ),
+                    );
                   },
                   leading: QueryArtworkWidget(
                     artworkFit: BoxFit.cover,

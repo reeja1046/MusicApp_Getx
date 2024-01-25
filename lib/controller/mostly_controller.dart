@@ -34,7 +34,6 @@ class MostlyPlayedController extends GetxController {
     }
   }
 
-  
   void updateMostlyPlayedSongs(MostlyPlayed currentSong) async {
     bool isAlreadyAdded = mostlyplayeddbsong
         .where((song) => song.title == currentSong.title)

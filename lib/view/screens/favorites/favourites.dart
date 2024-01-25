@@ -144,7 +144,7 @@ class Addtofavorites extends StatelessWidget {
         ],
       ),
       body: FavListView(
-        favdbsongs: favController.favDbSongs,
+        favdbsongs: favController.favDbSongs.reversed.toList(),
       ),
     );
   }
