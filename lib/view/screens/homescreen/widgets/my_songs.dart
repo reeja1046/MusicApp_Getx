@@ -194,7 +194,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_widget/marquee_widget.dart';
-import 'package:music_app/controller/home_controller.dart';
+import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
@@ -218,17 +218,19 @@ class MySong extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final HomeController homeController = Get.find<HomeController>();
+    // final HomeController homeController = Get.find<HomeController>();
     final RecentlyPlayedController recentController =
         Get.put(RecentlyPlayedController());
+    final MostlyPlayedController mostlyController =
+        Get.put(MostlyPlayedController());
     RecentlyPlayed recentlysong;
-
+    MostlyPlayed mostlySong;
     return ListTile(
       tileColor: Colors.black,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       onTap: () {
         log(currentSong.title.toString());
-        
+
         recentlysong = RecentlyPlayed(
             title: currentSong.title,
             artist: currentSong.artist,
@@ -236,6 +238,14 @@ class MySong extends StatelessWidget {
             songurl: currentSong.songurl,
             id: currentSong.id);
 
+        mostlySong = MostlyPlayed(
+            title: currentSong.title,
+            artist: currentSong.artist,
+            duration: currentSong.duration,
+            songurl: currentSong.songurl,
+            id: currentSong.id,
+            count: 1);
+        mostlyController.updateMostlyPlayedSongs(mostlySong);
         recentController.addRecently(recentlysong);
 
         audioPlayer.open(Playlist(audios: convertAudios, startIndex: index),

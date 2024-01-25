@@ -1,12 +1,12 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
-import 'package:music_app/database/functions/db_functions.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
 import 'package:music_app/database/model/song_model.dart';
 import 'package:music_app/view/screens/playlist/create_playlist.dart';
-import 'package:music_app/view/screens/recentlyplayed/recently_played.dart';
+import 'package:music_app/view/screens/library/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -18,6 +18,8 @@ class RecentlyListView extends StatelessWidget {
   Widget build(BuildContext context) {
     final RecentlyPlayedController recentlyController =
         Get.put(RecentlyPlayedController());
+    final MostlyPlayedController mostlyController =
+        Get.put(MostlyPlayedController());
 
     return (recentdbsongs.isEmpty)
         ? const Center(
@@ -50,6 +52,7 @@ class RecentlyListView extends StatelessWidget {
                     print(recentlyController.recentlyplayeddbsongs.length);
 
                     RecentlyPlayed recentlySong;
+                    MostlyPlayed mostlySong;
                     recentlySong = RecentlyPlayed(
                         title: currentSong.title,
                         artist: currentSong.artist,
@@ -57,7 +60,15 @@ class RecentlyListView extends StatelessWidget {
                         songurl: currentSong.songurl,
                         id: currentSong.id);
 
-                    // addRecently(recentlySong);
+                    recentlyController.addRecently(recentlySong);
+                    mostlySong = MostlyPlayed(
+                        title: currentSong.title,
+                        artist: currentSong.artist,
+                        duration: currentSong.duration,
+                        songurl: currentSong.songurl,
+                        id: currentSong.id,
+                        count: 1);
+                    mostlyController.updateMostlyPlayedSongs(mostlySong);
 
                     audioPlayers.open(
                       Playlist(

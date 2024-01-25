@@ -2,7 +2,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
-import 'package:music_app/view/screens/recentlyplayed/recently_listtile.dart';
+import 'package:music_app/view/screens/library/recentlyplayed/recently_listtile.dart';
 
 AssetsAudioPlayer audioPlayers = AssetsAudioPlayer.withId('0');
 List<Audio> convertAudio = [];

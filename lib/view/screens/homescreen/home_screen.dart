@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:music_app/controller/home_controller.dart';
 import 'package:music_app/view/screens/homescreen/widgets/allsongslist.dart';
-import 'package:music_app/view/screens/homescreen/widgets/library_buttons.dart';
-import 'package:music_app/view/screens/mostlyplayed/mostly_played.dart';
-import 'package:music_app/view/screens/recentlyplayed/recently_played.dart';
+import 'package:music_app/view/screens/library/widgets/library_buttons.dart';
+import 'package:music_app/view/screens/library/mostlyplayed/mostly_played.dart';
+import 'package:music_app/view/screens/library/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/screens/searchscreen/search_screen.dart';
 
 List<Audio> audioList = [];
