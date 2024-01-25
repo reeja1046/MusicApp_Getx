@@ -52,12 +52,12 @@ class FavSongs {
       required this.id});
 }
 
-class FavBox {
-  static Box<FavSongs>? _box;
-  static Box<FavSongs> getinstance() {
-    return _box ??= Hive.box('favorites');
-  }
-}
+// class FavBox {
+//   static Box<FavSongs>? _box;
+//   static Box<FavSongs> getinstance() {
+//     return _box ??= Hive.box('favorites');
+//   }
+// }
 
 @HiveType(typeId: 2)
 class RecentlyPlayed {

@@ -1,3 +1,115 @@
+// import 'package:assets_audio_player/assets_audio_player.dart';
+// import 'package:flutter/material.dart';
+// import 'package:marquee_widget/marquee_widget.dart';
+// import 'package:music_app/database/functions/db_functions.dart';
+// import 'package:music_app/database/functions/fav_db_functions.dart';
+// import 'package:music_app/database/model/song_model.dart';
+// import 'package:music_app/view/screens/homescreen/home_screen.dart';
+// import 'package:on_audio_query/on_audio_query.dart';
+
+// import '../../widgets/main_play_screen.dart';
+
+// // ignore: must_be_immutable
+// class Favouritelist extends StatefulWidget {
+//   final FavSongs song;
+//   List<FavSongs> songlist;
+//   final Color? color;
+//   final int index;
+//   Favouritelist(
+//       {super.key,
+//       required this.song,
+//       required this.songlist,
+//       this.color,
+//       required this.index});
+
+//   @override
+//   State<Favouritelist> createState() => _FavouritelistState();
+// }
+
+// class _FavouritelistState extends State<Favouritelist> {
+//   bool isfav = false;
+//   @override
+//   Widget build(BuildContext context) {
+//     return ListTile(
+//       tileColor: widget.color ?? Colors.black,
+//       onTap: () {
+//         RecentlyPlayed recentlySong;
+//         recentlySong = RecentlyPlayed(
+//             title: widget.song.title,
+//             artist: widget.song.artist,
+//             duration: widget.song.duration,
+//             songurl: widget.song.songurl,
+//             id: widget.song.id);
+
+//         MostlyPlayed mostlySong;
+//         mostlySong = MostlyPlayed(
+//             title: widget.song.title,
+//             artist: widget.song.artist,
+//             duration: widget.song.duration,
+//             songurl: widget.song.songurl,
+//             id: widget.song.id,
+//             count: 1);
+//         // addRecently(recentlySong);
+//         // addMostly(mostlySong);
+
+//         audioPlayer.stop();
+//         audioList.clear();
+//         for (FavSongs item in widget.songlist) {
+//           audioList.add(Audio.file(item.songurl!,
+//               metas: Metas(
+//                 title: item.title,
+//                 artist: item.artist,
+//                 id: item.id.toString(),
+//               )));
+//         }
+//         playingaudio(context, widget.index, widget.songlist);
+//       },
+//       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//       leading: QueryArtworkWidget(
+//         id: widget.song.id!,
+//         size: 3000,
+//         artworkFit: BoxFit.cover,
+//         type: ArtworkType.AUDIO,
+//         artworkBorder: BorderRadius.circular(10),
+//         artworkQuality: FilterQuality.high,
+//         nullArtworkWidget: Image(
+//           height: MediaQuery.of(context).size.height * 0.07,
+//           width: MediaQuery.of(context).size.height * 0.07,
+//           image: const AssetImage(
+//             'assets/images/All_songs_logo.jpeg',
+//           ),
+//         ),
+//       ),
+//       title: Marquee(
+//         animationDuration: const Duration(milliseconds: 6500),
+//         directionMarguee: DirectionMarguee.oneDirection,
+//         pauseDuration: const Duration(milliseconds: 1000),
+//         child: Text(
+//           widget.song.title!,
+//           style: const TextStyle(color: Colors.white),
+//         ),
+//       ),
+//       subtitle: Text(widget.song.artist.toString(),
+//           style: const TextStyle(color: Colors.white)),
+//       trailing: IconButton(
+//           onPressed: () {
+//             // setState(() {});
+//             // addToFavorite(widget.song.id, context);
+//           },
+//           icon: const Icon(Icons.delete, color: Colors.white)),
+//     );
+//   }
+// }
+
+// playingaudio(context, int index, songList) async {
+//   await audioPlayer.open(Playlist(audios: audioList, startIndex: index));
+//   Navigator.of(context).push(MaterialPageRoute(
+//       builder: (context) => NowPlaying(
+//             index: index,
+//             nowPlayList: songList,
+//           )));
+// }
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -5,14 +117,14 @@ import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:music_app/view/screens/library/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
-class MostlyListView extends StatelessWidget {
-  final List<MostlyPlayed> mostlydbsongs;
-  const MostlyListView({super.key, required this.mostlydbsongs});
+class FavListView extends StatelessWidget {
+  final List<FavSongs> favdbsongs;
+
+  const FavListView({super.key, required this.favdbsongs});
 
   @override
   Widget build(BuildContext context) {
@@ -21,13 +133,11 @@ class MostlyListView extends StatelessWidget {
 
     final RecentlyPlayedController recentlyController =
         Get.put(RecentlyPlayedController());
-
     final FavoriteController favController = Get.put(FavoriteController());
-
-    return (mostlydbsongs.isEmpty)
+    return (favdbsongs.isEmpty)
         ? const Center(
             child: Text(
-              "You haven't played anything ! ",
+              "You haven't liked anything ! ",
               style: TextStyle(
                   color: Colors.grey,
                   fontSize: 16,
@@ -35,25 +145,24 @@ class MostlyListView extends StatelessWidget {
             ),
           )
         : Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 5.0),
+            padding: EdgeInsets.all(10),
             child: ListView.separated(
               shrinkWrap: true,
               physics: const NeverScrollableScrollPhysics(),
-              itemCount: mostlydbsongs.length,
+              itemCount: favdbsongs.length,
               itemBuilder: (context, index) {
-                if (index == mostlydbsongs.length) {
+                if (index == favdbsongs.length) {
                   return SizedBox(
                     height: MediaQuery.of(context).size.height * 0.08,
                   );
                 }
-                MostlyPlayed currentSong = mostlydbsongs[index];
+                FavSongs currentSong = favdbsongs[index];
                 return ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10)),
                   tileColor: Colors.black,
                   onTap: () {
-                    print(mostlyController.mostlyplayeddbsong.length);
-                    print(recentlyController.recentlyplayeddbsongs.length);
+                    print(favController.favDbSongs.length);
                     MostlyPlayed mostlySong;
                     mostlySong = MostlyPlayed(
                         title: currentSong.title,
@@ -87,7 +196,7 @@ class MostlyListView extends StatelessWidget {
                     Navigator.of(context).push(MaterialPageRoute(
                         builder: (context) => NowPlaying(
                               index: index,
-                              nowPlayList: mostlydbsongs,
+                              nowPlayList: favdbsongs,
                             )));
                   },
                   leading: QueryArtworkWidget(
@@ -132,69 +241,12 @@ class MostlyListView extends StatelessWidget {
                               fontWeight: FontWeight.normal,
                               color: Colors.white),
                         ),
-                  trailing: PopupMenuButton(
-                    itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                      PopupMenuItem(
-                          child: TextButton(
-                        onPressed: () {
-                          favController.addToFavorite(currentSong.id, context);
-                          Navigator.of(context).pop();
-                        },
-                        child: Text(favController.isalready(currentSong.id)
-                            ? 'Remove from favorites'
-                            : 'Add to favorites'),
-                      )),
-                      PopupMenuItem(
-                        child: TextButton.icon(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            showBottomSheet(
-                              context: context,
-                              builder: (context) {
-                                return SizedBox(
-                                  height: 100,
-                                  width: double.infinity,
-                                  child: Column(
-                                    children: [
-                                      SizedBox(
-                                        width: double.infinity,
-                                        child: TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                              Navigator.of(context).push(
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          CreatePlaylist(
-                                                              song:
-                                                                  currentSong)));
-                                            },
-                                            child: const Text(
-                                                'Create New Playlist')),
-                                      ),
-                                      SizedBox(
-                                        width: double.infinity,
-                                        child: TextButton(
-                                            onPressed: () {
-                                              Navigator.of(context).pop();
-                                            },
-                                            child: const Text(
-                                                'Add to existing Playlist')),
-                                      ),
-                                    ],
-                                  ),
-                                );
-                              },
-                            );
-                          },
-                          icon: const Icon(Icons.playlist_add_outlined),
-                          label: const Text('Add to Playlist'),
-                        ),
-                      ),
-                    ],
-                    icon: const Icon(
-                      Icons.more_vert,
-                      color: Colors.white,
-                    ),
+                  trailing: IconButton(
+                    onPressed: () {
+                      int songIdToDelete = currentSong.id!;
+                      favController.removeFav(songIdToDelete, context);
+                    },
+                    icon: const Icon(Icons.delete, color: Colors.white),
                   ),
                 );
               },

@@ -10,8 +10,8 @@ import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SearchScreen extends StatefulWidget {
-  final List<dynamic> songList;
-  const SearchScreen({
+  var songList;
+   SearchScreen({
     super.key,
     required this.songList,
   });
@@ -111,7 +111,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           songurl: currentSong.songurl,
                           id: currentSong.id);
 
-                      addRecently(recentlySong);
+                      // addRecently(recentlySong);
 
                       audioPlayer.open(
                         Playlist(
@@ -174,16 +174,16 @@ class _SearchScreenState extends State<SearchScreen> {
                           ),
                     trailing: PopupMenuButton(
                       itemBuilder: (BuildContext context) => <PopupMenuEntry>[
-                        PopupMenuItem(
-                            child: TextButton(
-                          onPressed: () {
-                            addToFavorite(currentSong.id, context);
-                            Navigator.of(context).pop();
-                          },
-                          child: Text(isalready(currentSong.id)
-                              ? 'Remove from favourites'
-                              : 'Add to favourites'),
-                        )),
+                        // PopupMenuItem(
+                        //     child: TextButton(
+                        //   onPressed: () {
+                        //     // addToFavorite(currentSong.id, context);
+                        //     Navigator.of(context).pop();
+                        //   },
+                        //   child: Text(isalready(currentSong.id)
+                        //       ? 'Remove from favourites'
+                        //       : 'Add to favourites'),
+                        // )),
                         PopupMenuItem(
                           child: TextButton.icon(
                             onPressed: () {

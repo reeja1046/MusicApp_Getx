@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/database/functions/db_func.dart';
 import 'package:music_app/database/model/song_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -33,33 +32,33 @@ Future<void> requestPermission() async {
   }
 }
 
-addRecently(RecentlyPlayed song) {
-  int index;
-  List<RecentlyPlayed> recentList = recentplayeddb.values.toList();
-  bool isnotavailable = recentList.where((element) {
-    return element.title == song.title;
-  }).isEmpty;
-  if (isnotavailable == true) {
-    recentplayeddb.add(song);
-  } else {
-    index = recentList.indexWhere((element) => element.title == song.title);
-    recentplayeddb.deleteAt(index);
-    recentplayeddb.add(song);
-  }
-}
+// addRecently(RecentlyPlayed song) {
+//   int index;
+//   List<RecentlyPlayed> recentList = recentplayeddb.values.toList();
+//   bool isnotavailable = recentList.where((element) {
+//     return element.title == song.title;
+//   }).isEmpty;
+//   if (isnotavailable == true) {
+//     recentplayeddb.add(song);
+//   } else {
+//     index = recentList.indexWhere((element) => element.title == song.title);
+//     recentplayeddb.deleteAt(index);
+//     recentplayeddb.add(song);
+//   }
+// }
 
-addMostly(MostlyPlayed song) {
-  List<MostlyPlayed> mostlyList = mostlyplayeddb.values.toList();
-  bool isNotPresent = mostlyList.where((element) {
-    return element.title == song.title;
-  }).isEmpty;
-  if (isNotPresent == true) {
-    mostlyplayeddb.add(song);
-  } else {
-    int index = mostlyList.indexWhere((element) => element.title == song.title);
-    int count = mostlyList[index].count!;
-    song.count = (count + 1);
-    mostlyplayeddb.deleteAt(index);
-    mostlyplayeddb.add(song);
-  }
-}
+// addMostly(MostlyPlayed song) {
+//   List<MostlyPlayed> mostlyList = mostlyplayeddb.values.toList();
+//   bool isNotPresent = mostlyList.where((element) {
+//     return element.title == song.title;
+//   }).isEmpty;
+//   if (isNotPresent == true) {
+//     mostlyplayeddb.add(song);
+//   } else {
+//     int index = mostlyList.indexWhere((element) => element.title == song.title);
+//     int count = mostlyList[index].count!;
+//     song.count = (count + 1);
+//     mostlyplayeddb.deleteAt(index);
+//     mostlyplayeddb.add(song);
+//   }
+// }

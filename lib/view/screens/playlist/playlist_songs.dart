@@ -199,8 +199,8 @@ class _EachPlaylistSongsState extends State<EachPlaylistSongs> {
                                     artist: currentSong.artist,
                                     count: 1,
                                     id: currentSong.id);
-                                addRecently(recentlySong);
-                                addMostly(mostlySong);
+                                // addRecently(recentlySong);
+                                // addMostly(mostlySong);
                                 audioPlayer.open(
                                     Playlist(
                                         audios: convertPAudios,

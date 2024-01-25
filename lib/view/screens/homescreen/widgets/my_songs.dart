@@ -194,6 +194,7 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:marquee_widget/marquee_widget.dart';
+import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/database/functions/fav_db_functions.dart';
@@ -223,6 +224,7 @@ class MySong extends StatelessWidget {
         Get.put(RecentlyPlayedController());
     final MostlyPlayedController mostlyController =
         Get.put(MostlyPlayedController());
+    final FavoriteController favController = Get.put(FavoriteController());
     RecentlyPlayed recentlysong;
     MostlyPlayed mostlySong;
     return ListTile(
@@ -295,10 +297,10 @@ class MySong extends StatelessWidget {
           PopupMenuItem(
               child: TextButton(
             onPressed: () {
-              addToFavorite(currentSong.id, context);
+              favController.addToFavorite(currentSong.id, context);
               Navigator.of(context).pop();
             },
-            child: Text(isalready(currentSong.id)
+            child: Text(favController.isalready(currentSong.id)
                 ? 'Remove from favourites'
                 : 'Add to favourites'),
           )),

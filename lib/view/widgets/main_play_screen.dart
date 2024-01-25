@@ -176,38 +176,38 @@ class _NowPlayingState extends State<NowPlaying> {
                                               color: Colors.white,
                                               size: 35,
                                             )),
-                                        IconButton(
-                                          onPressed: () async {
-                                            (isalready(allDbSongs[widget.index]
-                                                    .id))
-                                                ? await removeFav(
-                                                    allDbSongs[widget.index].id,
-                                                    context)
-                                                : await addToFavorite(
-                                                    allDbSongs[widget.index].id,
-                                                    context);
-                                            setState(() {});
-                                          },
-                                          icon: (isalready(
-                                                  allDbSongs[widget.index].id))
-                                              ? const Icon(
-                                                  Icons.favorite_border,
-                                                  color: Colors.red,
-                                                )
-                                              : const Icon(
-                                                  Icons.favorite_border,
-                                                  color: Colors.white,
-                                                ),
-                                          // Icon(
-                                          //   isFavorite
-                                          //       ? Icons.favorite
-                                          //       : Icons.favorite_border,
-                                          //   color: isFavorite
-                                          //       ? Colors.red
-                                          //       : Colors.white,
-                                          // ),
-                                          iconSize: 30,
-                                        ),
+                                        // IconButton(
+                                        //   onPressed: () async {
+                                        //     (isalready(allDbSongs[widget.index]
+                                        //             .id))
+                                        //         ? await removeFav(
+                                        //             allDbSongs[widget.index].id,
+                                        //             context)
+                                        //         : await addToFavorite(
+                                        //             allDbSongs[widget.index].id,
+                                        //             context);
+                                        //     setState(() {});
+                                        //   },
+                                        //   icon: (isalready(
+                                        //           allDbSongs[widget.index].id))
+                                        //       ? const Icon(
+                                        //           Icons.favorite_border,
+                                        //           color: Colors.red,
+                                        //         )
+                                        //       : const Icon(
+                                        //           Icons.favorite_border,
+                                        //           color: Colors.white,
+                                        //         ),
+                                        //   // Icon(
+                                        //   //   isFavorite
+                                        //   //       ? Icons.favorite
+                                        //   //       : Icons.favorite_border,
+                                        //   //   color: isFavorite
+                                        //   //       ? Colors.red
+                                        //   //       : Colors.white,
+                                        //   // ),
+                                        //   iconSize: 30,
+                                        // ),
                                       ],
                                     ),
                                     SizedBox(
