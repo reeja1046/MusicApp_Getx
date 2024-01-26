@@ -335,7 +335,7 @@ class MostlyPlayedScreen extends StatelessWidget {
       body: Obx(
         () => Padding(
           padding: const EdgeInsets.all(10),
-          child: (mostlyPlayedController.mostlyplayeddbsong.isEmpty)
+          child: (mostlyPlayedController.mostlySongs.isEmpty)
               ? const Center(
                   child: Text(
                     "You haven't played anything ",
@@ -349,8 +349,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: mostlyPlayedController.mostlySongs.length,
                   itemBuilder: (context, index) {
-                    if (index ==
-                        mostlyPlayedController.mostlyplayeddbsong.length) {
+                    if (index == mostlyPlayedController.mostlySongs.length) {
                       return SizedBox(
                         height: MediaQuery.of(context).size.height * 0.08,
                       );
@@ -359,8 +358,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                       padding: EdgeInsets.symmetric(
                           vertical: MediaQuery.of(context).size.height * 0.005),
                       child: MostlyListView(
-                        currentSong:
-                            mostlyPlayedController.mostlyplayeddbsong[index],
+                        currentSong: mostlyPlayedController.mostlySongs[index],
                         convertAudios:
                             mostlyPlayedController.convertMostlyAudios,
                         index: index,

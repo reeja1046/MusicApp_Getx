@@ -36,6 +36,23 @@ class MostlyListView extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       tileColor: Colors.black,
       onTap: () {
+        audioPlayer.open(
+          Playlist(
+            audios: convertAudios,
+            startIndex: index,
+          ),
+          headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+          showNotification: true,
+          loopMode: LoopMode.playlist,
+        );
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) => NowPlaying(
+              index: index,
+              nowPlayList: convertAudios,
+            ),
+          ),
+        );
         print(mostlyController.mostlyplayeddbsong.length);
         print(recentlyController.recentlyplayeddbsongs.length);
         MostlyPlayed mostlySong;
@@ -57,24 +74,6 @@ class MostlyListView extends StatelessWidget {
             songurl: currentSong.songurl,
             id: currentSong.id);
         recentlyController.addRecently(recentlyPlayed);
-
-        audioPlayer.open(
-          Playlist(
-            audios: convertAudios,
-            startIndex: index,
-          ),
-          headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-          showNotification: true,
-          loopMode: LoopMode.playlist,
-        );
-        Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => NowPlaying(
-              index: index,
-              nowPlayList: convertAudios,
-            ),
-          ),
-        );
       },
       leading: QueryArtworkWidget(
         artworkFit: BoxFit.cover,

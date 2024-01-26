@@ -110,6 +110,8 @@
 //           )));
 // }
 
+import 'dart:developer';
+
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -117,7 +119,6 @@ import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
 import 'package:music_app/database/model/song_model.dart';
-import 'package:music_app/view/screens/library/recentlyplayed/recently_played.dart';
 import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
@@ -160,7 +161,8 @@ class FavListView extends StatelessWidget {
                 FavSongs currentSong = favdbsongs[index];
                 return ListTile(
                   shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10)),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
                   tileColor: Colors.black,
                   onTap: () {
                     print(favController.favDbSongs.length);
@@ -185,9 +187,9 @@ class FavListView extends StatelessWidget {
                         id: currentSong.id);
                     recentlyController.addRecently(recentlyPlayed);
 
-                    // audioPlayers.open(
+                    // audioPlayer.open(
                     //   Playlist(
-                    //     audios: convertAudio,
+                    //     audios: convertAudios,
                     //     startIndex: index,
                     //   ),
                     //   headPhoneStrategy:
@@ -248,6 +250,7 @@ class FavListView extends StatelessWidget {
                         ),
                   trailing: IconButton(
                     onPressed: () {
+                      log('nxjschdcdvfd');
                       int songIdToDelete = currentSong.id!;
                       favController.removeFav(songIdToDelete, context);
                     },
