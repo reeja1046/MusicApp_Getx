@@ -96,6 +96,7 @@ class FavoriteController extends GetxController {
   removeFav(int? songid, BuildContext context) {
     int currentindex = favDbSongs.indexWhere((element) => element.id == songid);
     favsongsdb.deleteAt(currentindex);
+
     const snackbar = SnackBar(
       content: Text(
         'Removed from favourites',

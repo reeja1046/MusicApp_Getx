@@ -124,8 +124,10 @@ import 'package:on_audio_query/on_audio_query.dart';
 
 class FavListView extends StatelessWidget {
   final List<FavSongs> favdbsongs;
+  List<Audio> convertAudios;
 
-  FavListView({super.key, required this.favdbsongs});
+  FavListView(
+      {super.key, required this.favdbsongs, required this.convertAudios});
 
   AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
   @override
@@ -165,6 +167,24 @@ class FavListView extends StatelessWidget {
                   ),
                   tileColor: Colors.black,
                   onTap: () {
+                    audioPlayer.open(
+                      Playlist(
+                        audios: convertAudios,
+                        startIndex: index,
+                      ),
+                      headPhoneStrategy:
+                          HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+                      showNotification: true,
+                      loopMode: LoopMode.playlist,
+                    );
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => NowPlaying(
+                          index: index,
+                          nowPlayList: convertAudios,
+                        ),
+                      ),
+                    );
                     print(favController.favDbSongs.length);
 
                     MostlyPlayed mostlySong;
@@ -186,25 +206,6 @@ class FavListView extends StatelessWidget {
                         songurl: currentSong.songurl,
                         id: currentSong.id);
                     recentlyController.addRecently(recentlyPlayed);
-
-                    // audioPlayer.open(
-                    //   Playlist(
-                    //     audios: convertAudios,
-                    //     startIndex: index,
-                    //   ),
-                    //   headPhoneStrategy:
-                    //       HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-                    //   showNotification: true,
-                    //   loopMode: LoopMode.playlist,
-                    // );
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => NowPlaying(
-                          index: index,
-                          nowPlayList: favdbsongs,
-                        ),
-                      ),
-                    );
                   },
                   leading: QueryArtworkWidget(
                     artworkFit: BoxFit.cover,
