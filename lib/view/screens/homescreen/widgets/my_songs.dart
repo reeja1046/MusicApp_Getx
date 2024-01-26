@@ -231,6 +231,7 @@ class MySong extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       onTap: () {
         log(currentSong.title.toString());
+        log("Updating Mostly Played Songs: ${currentSong.title}");
 
         recentlysong = RecentlyPlayed(
             title: currentSong.title,
@@ -247,6 +248,8 @@ class MySong extends StatelessWidget {
             id: currentSong.id,
             count: 1);
         mostlyController.updateMostlyPlayedSongs(mostlySong);
+        print('///////////**************.......');
+        print(mostlySong.count);
         recentController.addRecently(recentlysong);
 
         audioPlayer.open(Playlist(audios: convertAudios, startIndex: index),

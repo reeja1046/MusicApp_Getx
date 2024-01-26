@@ -347,7 +347,7 @@ class MostlyPlayedScreen extends StatelessWidget {
                 )
               : ListView.builder(
                   shrinkWrap: true,
-                  itemCount: mostlyPlayedController.mostlyplayeddbsong.length,
+                  itemCount: mostlyPlayedController.mostlySongs.length,
                   itemBuilder: (context, index) {
                     if (index ==
                         mostlyPlayedController.mostlyplayeddbsong.length) {
