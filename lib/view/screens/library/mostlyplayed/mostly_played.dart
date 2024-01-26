@@ -332,9 +332,47 @@ class MostlyPlayedScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: MostlyListView(
-        mostlydbsongs: mostlyPlayedController.mostlySongs,
+      body: Obx(
+        () => Padding(
+          padding: const EdgeInsets.all(10),
+          child: (mostlyPlayedController.mostlyplayeddbsong.isEmpty)
+              ? const Center(
+                  child: Text(
+                    "You haven't played anything ",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                )
+              : ListView.builder(
+                  shrinkWrap: true,
+                  itemCount: mostlyPlayedController.mostlyplayeddbsong.length,
+                  itemBuilder: (context, index) {
+                    if (index ==
+                        mostlyPlayedController.mostlyplayeddbsong.length) {
+                      return SizedBox(
+                        height: MediaQuery.of(context).size.height * 0.08,
+                      );
+                    }
+                    return Padding(
+                      padding: EdgeInsets.symmetric(
+                          vertical: MediaQuery.of(context).size.height * 0.005),
+                      child: MostlyListView(
+                        currentSong:
+                            mostlyPlayedController.mostlyplayeddbsong[index],
+                        convertAudios:
+                            mostlyPlayedController.convertMostlyAudios,
+                        index: index,
+                      ),
+                    );
+                  },
+                ),
+        ),
       ),
+      // MostlyListView(
+      //   mostlydbsongs: mostlyPlayedController.mostlySongs,
+      // ),
     );
   }
 }

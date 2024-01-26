@@ -67,7 +67,15 @@ class RecentlyPlayedScreen extends StatelessWidget {
         () => Padding(
           padding: const EdgeInsets.all(10),
           child: (recentlyPlayedController.recentlyplayeddbsongs.isEmpty)
-              ? const Center(child: Text("You haven't played anything "))
+              ? const Center(
+                  child: Text(
+                    "You haven't played anything ",
+                    style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 18,
+                        fontWeight: FontWeight.w500),
+                  ),
+                )
               : ListView.builder(
                   shrinkWrap: true,
                   itemCount:

@@ -9,6 +9,7 @@ import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
+// ignore: must_be_immutable
 class RecentlyListView extends StatelessWidget {
   dynamic currentSong;
   List<Audio> convertAudios;
@@ -34,7 +35,23 @@ class RecentlyListView extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       tileColor: Colors.black,
       onTap: () {
+        audioPlayer.open(
+          Playlist(
+            audios: convertAudios,
+            startIndex: index,
+          ),
+          headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
+          showNotification: true,
+          loopMode: LoopMode.playlist,
+        );
+        Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => NowPlaying(
+                  index: index,
+                  nowPlayList: convertAudios,
+                )));
+                
         print(recentlyController.recentlyplayeddbsongs.length);
+        print("Index: $index, Song Count: ${convertAudios.length}");
 
         RecentlyPlayed recentlySong;
         MostlyPlayed mostlySong;
@@ -54,21 +71,6 @@ class RecentlyListView extends StatelessWidget {
             id: currentSong.id,
             count: 1);
         mostlyController.updateMostlyPlayedSongs(mostlySong);
-
-        audioPlayer.open(
-          Playlist(
-            audios: convertAudios,
-            startIndex: index,
-          ),
-          headPhoneStrategy: HeadPhoneStrategy.pauseOnUnplugPlayOnPlug,
-          showNotification: true,
-          loopMode: LoopMode.playlist,
-        );
-        Navigator.of(context).push(MaterialPageRoute(
-            builder: (context) => NowPlaying(
-                  index: index,
-                  nowPlayList: convertAudios,
-                )));
       },
       leading: QueryArtworkWidget(
         artworkFit: BoxFit.cover,
