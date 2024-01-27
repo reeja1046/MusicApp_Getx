@@ -1,8 +1,8 @@
 import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:music_app/database/functions/db_func.dart';
-import 'package:music_app/database/model/song_model.dart';
+import 'package:music_app/model/database/db_func.dart';
+import 'package:music_app/model/song_model/song_model.dart';
 
 class FavoriteController extends GetxController {
   var convertFavSong = <Audio>[].obs;

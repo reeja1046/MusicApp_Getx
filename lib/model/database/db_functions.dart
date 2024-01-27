@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:music_app/database/model/song_model.dart';
+import 'package:music_app/model/song_model/song_model.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 ValueNotifier<List<Song>> songListNotifier = ValueNotifier([]);

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/controller/mostly_controller.dart';
 import 'package:music_app/controller/recently_%20controller.dart';
-import 'package:music_app/database/model/song_model.dart';
+import 'package:music_app/model/song_model/song_model.dart';
 import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:music_app/view/widgets/main_play_screen.dart';
 import 'package:on_audio_query/on_audio_query.dart';

@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:music_app/database/functions/db_func.dart';
-import 'package:music_app/database/functions/db_functions.dart';
-import 'package:music_app/database/model/song_model.dart';
+import 'package:music_app/model/database/db_func.dart';
+import 'package:music_app/model/database/db_functions.dart';
+import 'package:music_app/model/song_model/song_model.dart';
 import 'package:music_app/view/widgets/splash_screen.dart';
 
 Future<void> main() async {

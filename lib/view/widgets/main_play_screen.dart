@@ -7,7 +7,7 @@ import 'package:marquee_widget/marquee_widget.dart';
 import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
-import '../../database/model/song_model.dart';
+import '../../model/song_model/song_model.dart';
 
 class NowPlaying extends StatefulWidget {
   final int index;

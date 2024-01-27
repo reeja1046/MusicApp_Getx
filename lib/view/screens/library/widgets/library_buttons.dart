@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 // ignore: must_be_immutable
 class LibraryButtons extends StatelessWidget {
   String title;
-  Function onPressed; // Change the type to Function
+  Function onPressed; 
 
   LibraryButtons({Key? key, required this.title, required this.onPressed})
       : super(key: key);
