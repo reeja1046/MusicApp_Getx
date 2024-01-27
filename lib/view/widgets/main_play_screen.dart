@@ -2,8 +2,9 @@ import 'package:assets_audio_player/assets_audio_player.dart';
 import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:get/get.dart';
 import 'package:marquee_widget/marquee_widget.dart';
-import 'package:music_app/database/functions/fav_db_functions.dart';
+import 'package:music_app/controller/favorites_controller.dart';
 import 'package:music_app/view/screens/playlist/create_playlist.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 import '../../database/model/song_model.dart';
@@ -25,6 +26,7 @@ AssetsAudioPlayer audioPlayer = AssetsAudioPlayer.withId('0');
 ValueNotifier<bool> scrollNotifier = ValueNotifier(true);
 
 class _NowPlayingState extends State<NowPlaying> {
+  final FavoriteController favController = Get.put(FavoriteController());
   final box = SongBox.getinstance();
   late List<Song> allDbSongs;
   double progress = 0.0;
@@ -33,7 +35,6 @@ class _NowPlayingState extends State<NowPlaying> {
   @override
   void initState() {
     allDbSongs = box.values.toList();
-    // TODO: implement initState
     super.initState();
   }
 
@@ -176,19 +177,50 @@ class _NowPlayingState extends State<NowPlaying> {
                                               color: Colors.white,
                                               size: 35,
                                             )),
+                                        IconButton(
+                                          onPressed: () async {
+                                            (favController.isalready(
+                                                    allDbSongs[widget.index]
+                                                        .id))
+                                                ? await favController.removeFav(
+                                                    allDbSongs[widget.index].id,
+                                                    context)
+                                                : await favController
+                                                    .addToFavorite(
+                                                        allDbSongs[widget.index]
+                                                            .id,
+                                                        context);
+                                            setState(() {});
+                                          },
+                                          icon: (favController.isalready(
+                                                  allDbSongs[widget.index].id))
+                                              ? const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.red,
+                                                )
+                                              : const Icon(
+                                                  Icons.favorite_border,
+                                                  color: Colors.white,
+                                                ),
+                                          iconSize: 30,
+                                        ),
+
                                         // IconButton(
                                         //   onPressed: () async {
-                                        //     (isalready(allDbSongs[widget.index]
-                                        //             .id))
-                                        //         ? await removeFav(
-                                        //             allDbSongs[widget.index].id,
+                                        //     (favController.isalready(
+                                        //             favController.favDbSongs))
+                                        //         ? await favController.removeFav(
+                                        //             favController.favDbSongs
+                                        //                 as int?,
                                         //             context)
-                                        //         : await addToFavorite(
-                                        //             allDbSongs[widget.index].id,
-                                        //             context);
+                                        //         : await favController
+                                        //             .addToFavorite(
+                                        //                 allDbSongs[widget.index]
+                                        //                     .id,
+                                        //                 context);
                                         //     setState(() {});
                                         //   },
-                                        //   icon: (isalready(
+                                        //   icon: (favController.isalready(
                                         //           allDbSongs[widget.index].id))
                                         //       ? const Icon(
                                         //           Icons.favorite_border,
